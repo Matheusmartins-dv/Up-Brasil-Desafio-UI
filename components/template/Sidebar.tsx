@@ -46,7 +46,7 @@ export function Sidebar({ tenantIds }: SidebarProps) {
   const navItems = [
     { name: "Categorias", href: "/categories", icon: Tag },
     { name: "Produtos", href: "/products", icon: Boxes },
-    { name: "Usuários", href: "/users", icon: Users },
+    { name: "Usuários", href: "/user/tenant", icon: Users },
   ];
 
   return (
