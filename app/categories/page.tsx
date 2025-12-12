@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Loader2, Plus, Edit2, Trash2 } from "lucide-react";
+import { Loader2, Plus, Edit2, Trash2, PowerIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -21,6 +21,7 @@ import {
   getCategories,
   type CategoryResponse,
 } from "../../core/request/getCategories";
+import { changeStartuProductCategory } from "../../core/request/changeStartuProductCategory";
 import { Sidebar } from "../../components/template/Sidebar";
 
 const TENANT_STORAGE_KEY = "active_tenant_id";
@@ -98,6 +99,12 @@ export default function CategoryListPage() {
     router.push("/categories/create");
   };
 
+  const handleChangeStatus = async (id: string) => {
+    toast.info(`Funcionalidade: Excluir categoria (ID: ${id})`);
+    changeStartuProductCategory(id);
+    window.location.reload();
+  };
+
   const handleEditCategory = (id: string) => {
     router.push(`/categories/edit/${id}`);
   };
@@ -149,7 +156,7 @@ export default function CategoryListPage() {
               onClick={handleAddCategory}
             >
               <Plus className="mr-2 h-4 w-4" />
-              Adicionar Novo
+              Novo
             </Button>
           </CardHeader>
 
@@ -209,6 +216,13 @@ export default function CategoryListPage() {
                           onClick={() => handleEditCategory(category.id)}
                         >
                           <Edit2 className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleChangeStatus(category.id)}
+                        >
+                          <PowerIcon className="h-4 w-4 " />
                         </Button>
                       </TableCell>
                     </TableRow>

@@ -151,7 +151,7 @@ export default function ProductsListPage() {
               onClick={handleAddCategory}
             >
               <Plus className="mr-2 h-4 w-4" />
-              Adicionar Novo
+              Novo
             </Button>
           </CardHeader>
 
