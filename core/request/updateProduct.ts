@@ -13,6 +13,6 @@ export interface UpdateProductRequest{
 
 export async function updateProduct(data: UpdateProductRequest): Promise<ApiResponse<boolean>> {
     const response = await UpApiContextRequest.put<ApiResponse<boolean>>('/products', data);
-    
+
     return response.data;
 }

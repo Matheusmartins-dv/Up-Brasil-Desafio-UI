@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// 🛑 DEFINIÇÃO DA URL BASE DA API 🛑
 const API_BASE_URL = 'http://localhost:5171/api/v1'; 
 
 const UpApiContextRequest = axios.create({

@@ -34,6 +34,7 @@ import {
   getCategories,
   type CategoryResponse,
 } from "../../../core/request/getCategories";
+import { isAxiosError } from "axios";
 
 const TENANT_STORAGE_KEY = "active_tenant_id";
 
@@ -190,7 +191,7 @@ export default function ProductFormPage({
       }
 
       try {
-        let result: { success: boolean; message?: string };
+        let result: { success: boolean; message?: string; data?: any };
         let productName = formData.name;
 
         if (isEditMode && formData.id) {
@@ -224,7 +225,7 @@ export default function ProductFormPage({
               ? "Produto atualizado com sucesso!"
               : "Produto cadastrado com sucesso!",
             {
-              description: `Produto '${productName}' salvo.`,
+              description: result.message || `Produto '${productName}' salvo.`,
             }
           );
           router.push("/products");
@@ -235,9 +236,18 @@ export default function ProductFormPage({
           });
         }
       } catch (error) {
-        toast.error("Erro de Conexão.", {
-          description:
-            "Não foi possível conectar com a API ou houve um erro inesperado.",
+        let errorMessage = "Mensagem da API não encontrada ou erro de rede.";
+
+        if (isAxiosError(error)) {
+          const apiMessage = error.response?.data?.Message as string;
+
+          if (apiMessage) {
+            errorMessage = apiMessage;
+          }
+        }
+
+        toast.error("Falha ao processar a requisição.", {
+          description: errorMessage,
         });
       } finally {
         setLoading(false);
