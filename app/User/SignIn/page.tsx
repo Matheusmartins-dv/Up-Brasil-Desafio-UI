@@ -42,11 +42,26 @@ export default function SignInPage() {
 
         if (result.success && result.data) {
           const userData: SignInResponse = result.data;
+
+          // Lógica para salvar os tenants e redirecionar
+
+          // 1. Salva a lista COMPLETA de Tenant IDs
+          localStorage.setItem(
+            "user_tenant_ids",
+            JSON.stringify(userData.tenantIds)
+          );
+
+          // 2. Seta o PRIMEIRO tenant como ativo por padrão (se houver)
+          if (userData.tenantIds.length > 0) {
+            localStorage.setItem("active_tenant_id", userData.tenantIds[0]);
+          }
+
           toast.success("Login efetuado com sucesso.", {
             description: `Bem-vindo! ID: ${userData.id}`,
           });
 
-          //router.push("/dashboard");
+          // 3. Redireciona para a dashboard
+          router.push("/Home");
         } else {
           toast.warning("Falha no login.", {
             description: result.message || "E-mail ou senha inválidos.",

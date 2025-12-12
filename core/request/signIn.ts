@@ -1,5 +1,3 @@
-// src/core/requests/Auth/SignIn.ts
-
 import { UpApiContextRequest, type ApiResponse } from "../apiContext/UpApiContextRequest";
 
 export interface SignInRequest {
