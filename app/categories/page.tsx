@@ -192,11 +192,6 @@ export default function CategoryListPage() {
                       <TableCell>
                         <Badge
                           variant={category.active ? "default" : "secondary"}
-                          className={
-                            category.active
-                              ? "bg-green-600 hover:bg-green-700"
-                              : "bg-red-500 hover:bg-red-600"
-                          }
                         >
                           {category.active ? "Ativo" : "Inativo"}
                         </Badge>
