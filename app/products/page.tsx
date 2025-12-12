@@ -103,9 +103,10 @@ export default function ProductsListPage() {
     router.push(`/products/edit/${id}`);
   };
 
-  const handleChangeStatus = (id: string) => {
+  const handleChangeStatus = async (id: string) => {
     toast.info(`Funcionalidade: Excluir categoria (ID: ${id})`);
     changeStatusProduct(id);
+    window.location.reload();
   };
 
   if (isLoading) {
