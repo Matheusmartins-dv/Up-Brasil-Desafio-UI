@@ -102,10 +102,6 @@ export default function CategoryListPage() {
     router.push(`/categories/edit/${id}`);
   };
 
-  const handleDeleteCategory = (id: string, name: string) => {
-    toast.info(`Funcionalidade: Excluir categoria ${name} (ID: ${id})`);
-  };
-
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -218,15 +214,6 @@ export default function CategoryListPage() {
                           onClick={() => handleEditCategory(category.id)}
                         >
                           <Edit2 className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() =>
-                            handleDeleteCategory(category.id, category.name)
-                          }
-                        >
-                          <Trash2 className="h-4 w-4 text-red-500" />
                         </Button>
                       </TableCell>
                     </TableRow>
