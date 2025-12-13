@@ -21,6 +21,7 @@ import {
   getTenantUsers,
   type UserResponse,
 } from "../../../core/request/getTenantUsers";
+import { changeStatusTenantUser } from "../../../core/request/changeStatusTenantUser";
 import { Sidebar } from "../../../components/template/Sidebar";
 
 const TENANT_STORAGE_KEY = "active_tenant_id";
@@ -94,12 +95,14 @@ export default function CategoryListPage() {
     fetchCategories();
   }, []);
 
-  const handleAddCategory = () => {
+  const handleAddTenantUser = () => {
     router.push("/user/tenant/create");
   };
 
-  const handleEditCategory = (id: string) => {
-    router.push(`/categories/edit/${id}`);
+  const handleChangeStatus = async (id: string) => {
+    toast.info(`Status do usuário alterado (ID: ${id})`);
+    changeStatusTenantUser(id);
+    window.location.reload();
   };
 
   if (isLoading) {
@@ -146,7 +149,7 @@ export default function CategoryListPage() {
 
             <Button
               className="bg-orange-500 hover:bg-orange-600 text-white transition-colors"
-              onClick={handleAddCategory}
+              onClick={handleAddTenantUser}
             >
               <Plus className="mr-2 h-4 w-4" />
               Novo
@@ -204,7 +207,7 @@ export default function CategoryListPage() {
                           variant="ghost"
                           size="sm"
                           className="mr-2"
-                          onClick={() => handleEditCategory(user.id)}
+                          onClick={() => handleChangeStatus(user.id)}
                         >
                           <PowerIcon className="h-4 w-4" />
                         </Button>

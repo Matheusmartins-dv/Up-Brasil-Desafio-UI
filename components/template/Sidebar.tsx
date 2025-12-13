@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -11,8 +11,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 
-import { LayoutDashboard, Users, Boxes, Tag } from "lucide-react";
+import { Users, Boxes, Tag } from "lucide-react";
 
 interface SidebarProps {
   tenantIds: string[];
@@ -22,6 +24,7 @@ const TENANT_STORAGE_KEY = "active_tenant_id";
 
 export function Sidebar({ tenantIds }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [activeTenantId, setActiveTenantId] = React.useState<
     string | undefined
   >(undefined);
@@ -41,6 +44,12 @@ export function Sidebar({ tenantIds }: SidebarProps) {
   const handleTenantChange = (tenantId: string) => {
     setActiveTenantId(tenantId);
     localStorage.setItem(TENANT_STORAGE_KEY, tenantId);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem(TENANT_STORAGE_KEY);
+    router.push("/user/signin");
   };
 
   const navItems = [
@@ -98,6 +107,19 @@ export function Sidebar({ tenantIds }: SidebarProps) {
           );
         })}
       </nav>
+
+      <div className="mt-auto pt-4 border-t">
+        <Button
+          onClick={handleLogout}
+          variant="ghost"
+          className="w-full justify-start  
+                     hover:bg-destructive/10 
+                     hover:text-destructive"
+        >
+          <LogOut className="mr-3 h-5 w-5" />
+          Sair
+        </Button>
+      </div>
     </div>
   );
 }

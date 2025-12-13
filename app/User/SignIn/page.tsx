@@ -15,6 +15,7 @@ import {
   type SignInRequest,
   type SignInResponse,
 } from "../../../core/request/signIn";
+import { isAxiosError } from "axios";
 
 interface FormData extends SignInRequest {}
 
@@ -63,10 +64,18 @@ export default function SignInPage() {
           });
         }
       } catch (error) {
-        console.error("Erro ao tentar logar:", error);
-        toast.error("Erro de Conexão.", {
-          description:
-            "Não foi possível conectar com a API. Tente novamente mais tarde.",
+        let errorMessage = "Mensagem da API não encontrada ou erro de rede.";
+
+        if (isAxiosError(error)) {
+          const apiMessage = error.response?.data?.Message as string;
+
+          if (apiMessage) {
+            errorMessage = apiMessage;
+          }
+        }
+
+        toast.error("Falha ao processar a requisição.", {
+          description: errorMessage,
         });
       } finally {
         setLoading(false);
@@ -147,7 +156,7 @@ export default function SignInPage() {
           <p className="text-center text-sm text-muted-foreground pt-4">
             Não tem uma conta?{" "}
             <Link
-              href="/User/Create"
+              href="/user/create"
               className="text-primary hover:text-primary/90 font-medium transition-colors"
             >
               Cadastre-se aqui

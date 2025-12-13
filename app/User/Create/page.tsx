@@ -196,7 +196,7 @@ export default function SignUpPage() {
           <p className="text-center text-sm text-muted-foreground pt-4">
             Já tem uma conta?
             <Link
-              href="/User/SignIn"
+              href="/user/signin"
               className="text-primary hover:text-primary/90 font-medium transition-colors"
             >
               Fazer login
