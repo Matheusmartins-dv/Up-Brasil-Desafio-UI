@@ -174,6 +174,7 @@ export default function ProductsListPage() {
                     </TableHead>
                     <TableHead>SKU</TableHead>
                     <TableHead>Preço</TableHead>
+                    <TableHead>Perecível</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead className="hidden lg:table-cell">
                       Criado Em
@@ -198,6 +199,13 @@ export default function ProductsListPage() {
                       </TableCell>
                       <TableCell className="hidden md:table-cell text-sm text-gray-500">
                         {product.price || "-"}
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={product.perishable ? "default" : "secondary"}
+                        >
+                          {product.perishable ? "Sim" : "Não"}
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <Badge
