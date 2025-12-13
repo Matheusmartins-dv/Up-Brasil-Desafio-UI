@@ -167,7 +167,6 @@ export default function ProductsListPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[100px]">ID</TableHead>
                     <TableHead>Nome</TableHead>
                     <TableHead className="hidden md:table-cell">
                       Descrição
@@ -185,9 +184,6 @@ export default function ProductsListPage() {
                 <TableBody>
                   {products.map((product) => (
                     <TableRow key={product.id}>
-                      <TableCell className="font-medium text-xs text-muted-foreground">
-                        {product.id.substring(0, 8)}...
-                      </TableCell>
                       <TableCell className="font-semibold">
                         {product.name}
                       </TableCell>
@@ -215,9 +211,13 @@ export default function ProductsListPage() {
                         </Badge>
                       </TableCell>
                       <TableCell className="hidden lg:table-cell text-sm">
-                        {new Date(product.createdAt).toLocaleDateString(
-                          "pt-BR"
-                        )}
+                        {new Date(product.createdAt).toLocaleString("pt-BR", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </TableCell>
                       <TableCell className="text-right">
                         <Button

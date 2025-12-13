@@ -168,7 +168,6 @@ export default function CategoryListPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[100px]">ID Curto</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead className="hidden md:table-cell">Nome</TableHead>
                     <TableHead>Documento</TableHead>
@@ -182,9 +181,6 @@ export default function CategoryListPage() {
                 <TableBody>
                   {users.map((user) => (
                     <TableRow key={user.id}>
-                      <TableCell className="font-medium text-xs text-muted-foreground">
-                        {user.id.substring(0, 8)}...
-                      </TableCell>
                       <TableCell className="hidden md:table-cell text-sm text-gray-500">
                         {user.userEmail || "Sem descrição"}
                       </TableCell>
@@ -200,7 +196,13 @@ export default function CategoryListPage() {
                         </Badge>
                       </TableCell>
                       <TableCell className="hidden lg:table-cell text-sm">
-                        {new Date(user.createdAt).toLocaleDateString("pt-BR")}
+                        {new Date(user.createdAt).toLocaleString("pt-BR", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </TableCell>
                       <TableCell className="text-right">
                         <Button

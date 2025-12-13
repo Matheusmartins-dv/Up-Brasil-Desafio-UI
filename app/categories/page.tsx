@@ -172,7 +172,6 @@ export default function CategoryListPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[100px]">ID Curto</TableHead>
                     <TableHead>Nome</TableHead>
                     <TableHead className="hidden md:table-cell">
                       Descrição
@@ -187,9 +186,6 @@ export default function CategoryListPage() {
                 <TableBody>
                   {categories.map((category) => (
                     <TableRow key={category.id}>
-                      <TableCell className="font-medium text-xs text-muted-foreground">
-                        {category.id.substring(0, 8)}...
-                      </TableCell>
                       <TableCell className="font-semibold">
                         {category.name}
                       </TableCell>
@@ -204,9 +200,13 @@ export default function CategoryListPage() {
                         </Badge>
                       </TableCell>
                       <TableCell className="hidden lg:table-cell text-sm">
-                        {new Date(category.createdAt).toLocaleDateString(
-                          "pt-BR"
-                        )}
+                        {new Date(category.createdAt).toLocaleString("pt-BR", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </TableCell>
                       <TableCell className="text-right">
                         <Button
