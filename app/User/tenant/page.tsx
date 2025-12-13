@@ -109,9 +109,7 @@ export default function CategoryListPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="mr-2 h-6 w-6 animate-spin text-orange-500" />
-        <p className="text-lg text-muted-foreground">
-          Carregando categorias...
-        </p>
+        <p className="text-lg text-muted-foreground">Carregando usuários...</p>
       </div>
     );
   }
