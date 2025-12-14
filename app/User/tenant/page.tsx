@@ -165,7 +165,7 @@ export default function CategoryListPage() {
             ) : (
               <Table>
                 <TableHeader>
-                  <TableRow>
+                  <TableRow className="bg-gray-100">
                     <TableHead>Email</TableHead>
                     <TableHead className="hidden md:table-cell">Nome</TableHead>
                     <TableHead>Documento</TableHead>
