@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Loader2, Plus, Edit2, PowerIcon } from "lucide-react";
+import { Loader2, Plus, Edit2, PowerIcon, TrashIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -22,6 +22,7 @@ import {
   type ProductResponse,
 } from "../../core/request/getProducts";
 import { changeStatusProduct } from "../../core/request/changeStatusProduct";
+import { deleteProduct } from "../../core/request/deleteProduct";
 import { Sidebar } from "../../components/template/Sidebar";
 
 const TENANT_STORAGE_KEY = "active_tenant_id";
@@ -95,17 +96,22 @@ export default function ProductsListPage() {
     fetchCategories();
   }, []);
 
-  const handleAddCategory = () => {
+  const handleAddProduct = () => {
     router.push("/products/create");
   };
 
-  const handleEditCategory = (id: string) => {
+  const handleEditProduct = (id: string) => {
     router.push(`/products/edit/${id}`);
   };
 
   const handleChangeStatus = async (id: string) => {
-    toast.info(`Funcionalidade: Excluir categoria (ID: ${id})`);
     changeStatusProduct(id);
+    window.location.reload();
+  };
+
+  const handleDelete = async (id: string) => {
+    toast.info(`Funcionalidade: Excluir categoria (ID: ${id})`);
+    deleteProduct(id);
     window.location.reload();
   };
 
@@ -148,7 +154,7 @@ export default function ProductsListPage() {
 
             <Button
               className="bg-orange-500 hover:bg-orange-600 text-white transition-colors"
-              onClick={handleAddCategory}
+              onClick={handleAddProduct}
             >
               <Plus className="mr-2 h-4 w-4" />
               Novo
@@ -224,7 +230,7 @@ export default function ProductsListPage() {
                           variant="ghost"
                           size="sm"
                           className="mr-2"
-                          onClick={() => handleEditCategory(product.id)}
+                          onClick={() => handleEditProduct(product.id)}
                         >
                           <Edit2 className="h-4 w-4" />
                         </Button>
@@ -234,6 +240,13 @@ export default function ProductsListPage() {
                           onClick={() => handleChangeStatus(product.id)}
                         >
                           <PowerIcon className="h-4 w-4 " />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDelete(product.id)}
+                        >
+                          <TrashIcon className="h-4 w-4 " />
                         </Button>
                       </TableCell>
                     </TableRow>
