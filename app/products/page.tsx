@@ -6,7 +6,14 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Loader2, Plus, Edit2, PowerIcon, TrashIcon } from "lucide-react";
+import {
+  Loader2,
+  Plus,
+  Edit2,
+  PowerIcon,
+  TrashIcon,
+  MoreVertical,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -16,6 +23,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import {
   getProducts,
@@ -226,28 +239,37 @@ export default function ProductsListPage() {
                         })}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="mr-2"
-                          onClick={() => handleEditProduct(product.id)}
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleChangeStatus(product.id)}
-                        >
-                          <PowerIcon className="h-4 w-4 " />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDelete(product.id)}
-                        >
-                          <TrashIcon className="h-4 w-4 " />
-                        </Button>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                              <span className="sr-only">
+                                Abrir menu de ações
+                              </span>
+                              <MoreVertical className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem
+                              onClick={() => handleEditProduct(product.id)}
+                            >
+                              <Edit2 className="mr-2 h-4 w-4 text-inherit" />
+                              Editar
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => handleChangeStatus(product.id)}
+                            >
+                              <PowerIcon className="mr-2 h-4 w-4 text-inherit" />
+                              {product.active ? "Desativar" : "Ativar"}
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              className="text-red-600 focus:text-white focus:bg-red-600"
+                              onClick={() => handleDelete(product.id)}
+                            >
+                              <TrashIcon className="mr-2 h-4 w-4 text-inherit" />
+                              Excluir
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </TableCell>
                     </TableRow>
                   ))}
